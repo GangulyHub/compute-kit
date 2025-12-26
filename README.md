@@ -158,80 +158,104 @@ function Calculator() {
 
 ### React + WASM (Full Example)
 
-This is where ComputeKit shines — using WASM for compute-heavy operations with React hooks:
+This is where ComputeKit shines — combining `useCompute` with WASM for native-speed performance:
 
 ```tsx
-// 1. Your AssemblyScript WASM module (compile with: npx asc blur.ts -o blur.wasm -O3)
-// blur.ts:
-// export function blurImage(width: i32, height: i32, passes: i32): void { ... }
+import { ComputeKitProvider, useComputeKit, useCompute } from '@computekit/react';
+import { useEffect, useRef } from 'react';
+import { loadWasm } from './wasmLoader'; // Your WASM loader
 
-// 2. Your React component
-import { useEffect, useRef, useState } from 'react';
+// 1. Wrap your app
+function App() {
+  return (
+    <ComputeKitProvider>
+      <ImageProcessor />
+    </ComputeKitProvider>
+  );
+}
 
-// Load WASM module (generated loader or manual instantiation)
-import * as wasmModule from './wasmLoader';
-
-function ImageBlur() {
-  const [loading, setLoading] = useState(false);
-  const [time, setTime] = useState<number | null>(null);
+// 2. Register a WASM-powered compute function
+function ImageProcessor() {
+  const kit = useComputeKit();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const runBlur = async () => {
-    setLoading(true);
+  useEffect(() => {
+    // Register a function that uses WASM internally
+    kit.register(
+      'blurImage',
+      async (input: {
+        data: number[];
+        width: number;
+        height: number;
+        passes: number;
+      }) => {
+        const wasm = await loadWasm();
+        const { data, width, height, passes } = input;
 
-    // Get image data from canvas
+        // Copy input to WASM memory
+        const ptr = wasm.getBufferPtr();
+        const wasmMem = new Uint8ClampedArray(wasm.memory.buffer, ptr, data.length);
+        wasmMem.set(data);
+
+        // Run WASM blur
+        wasm.blurImage(width, height, passes);
+
+        // Return result
+        return Array.from(new Uint8ClampedArray(wasm.memory.buffer, ptr, data.length));
+      }
+    );
+  }, [kit]);
+
+  // 3. Use useCompute like any other function!
+  const { data, loading, run } = useCompute<
+    { data: number[]; width: number; height: number; passes: number },
+    number[]
+  >('blurImage');
+
+  const handleBlur = () => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-    // Copy to WASM memory
-    const ptr = wasmModule.getBufferPtr();
-    const wasmMemory = new Uint8ClampedArray(
-      wasmModule.memory.buffer,
-      ptr,
-      imageData.data.length
-    );
-    wasmMemory.set(imageData.data);
-
-    // Run WASM blur (this is the fast part!)
-    const start = performance.now();
-    wasmModule.blurImage(canvas.width, canvas.height, 100); // 100 blur passes
-    setTime(performance.now() - start);
-
-    // Copy result back to canvas
-    const result = new Uint8ClampedArray(
-      wasmModule.memory.buffer,
-      ptr,
-      imageData.data.length
-    );
-    const newImageData = new ImageData(
-      new Uint8ClampedArray(result),
-      canvas.width,
-      canvas.height
-    );
-    ctx.putImageData(newImageData, 0, 0);
-
-    setLoading(false);
+    run({
+      data: Array.from(imageData.data),
+      width: canvas.width,
+      height: canvas.height,
+      passes: 100,
+    });
   };
+
+  // Update canvas when result arrives
+  useEffect(() => {
+    if (data && canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d')!;
+      const imageData = new ImageData(
+        new Uint8ClampedArray(data),
+        canvas.width,
+        canvas.height
+      );
+      ctx.putImageData(imageData, 0, 0);
+    }
+  }, [data]);
 
   return (
     <div>
       <canvas ref={canvasRef} width={256} height={256} />
-      <button onClick={runBlur} disabled={loading}>
+      <button onClick={handleBlur} disabled={loading}>
         {loading ? 'Processing...' : 'Blur Image (WASM)'}
       </button>
-      {time && <p>Completed in {time.toFixed(2)}ms</p>}
     </div>
   );
 }
 ```
 
-**Why is this better than raw WASM?**
+**Key benefits:**
 
-- No manual `WebAssembly.instantiate()` boilerplate
-- Memory management handled for you
-- React-friendly with hooks and state
-- Type-safe WASM function calls
+- WASM runs in a Web Worker via `useCompute` — UI stays responsive
+- Same familiar `loading`, `data`, `error` pattern as other compute functions
+- WASM memory management encapsulated in the registered function
+- Can easily add progress reporting, cancellation, etc.
 
 ---
 
