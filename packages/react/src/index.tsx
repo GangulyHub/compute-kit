@@ -3,7 +3,7 @@
  * React hooks and utilities for ComputeKit
  */
 
-import {
+import React, {
   useState,
   useEffect,
   useCallback,
@@ -60,7 +60,7 @@ export function ComputeKitProvider({
   options,
   instance,
   children,
-}: ComputeKitProviderProps): JSX.Element {
+}: ComputeKitProviderProps): React.ReactElement {
   const kit = useMemo(() => {
     return instance ?? new ComputeKit(options);
   }, [instance, options]);

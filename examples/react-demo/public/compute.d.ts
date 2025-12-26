@@ -109,3 +109,15 @@ export declare function vectorMagnitude(v: Float64Array): number;
  * @returns `~lib/typedarray/Float64Array`
  */
 export declare function vectorNormalize(v: Float64Array): Float64Array;
+/**
+ * compute/blur/getBufferPtr
+ * @returns `usize`
+ */
+export declare function getBufferPtr(): number;
+/**
+ * compute/blur/blurImage
+ * @param width `i32`
+ * @param height `i32`
+ * @param passes `i32`
+ */
+export declare function blurImage(width: number, height: number, passes: number): void;

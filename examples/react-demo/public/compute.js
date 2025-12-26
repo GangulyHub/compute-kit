@@ -99,6 +99,10 @@ async function instantiate(module, imports = {}) {
       v = __lowerTypedArray(Float64Array, 5, 3, v) || __notnull();
       return __liftTypedArray(Float64Array, exports.vectorNormalize(v) >>> 0);
     },
+    getBufferPtr() {
+      // compute/blur/getBufferPtr() => usize
+      return exports.getBufferPtr() >>> 0;
+    },
   }, exports);
   function __liftString(pointer) {
     if (!pointer) return null;
@@ -188,6 +192,8 @@ export const {
   dotProduct,
   vectorMagnitude,
   vectorNormalize,
+  getBufferPtr,
+  blurImage,
 } = await (async url => instantiate(
   await (async () => {
     const isNodeOrBun = typeof process != "undefined" && process.versions != null && (process.versions.node != null || process.versions.bun != null);

@@ -500,13 +500,14 @@ computekit/
 │       └── package.json
 │
 ├── compute/            # AssemblyScript functions
+│   ├── blur.ts
 │   ├── fibonacci.ts
 │   ├── mandelbrot.ts
-│   └── matrix.ts
+│   ├── matrix.ts
+│   └── sum.ts
 │
 ├── examples/
-│   ├── react-demo/     # React example app
-│   └── vanilla-demo/   # Vanilla JS example
+│   └── react-demo/     # React example app
 │
 └── docs/               # Documentation
 ```
