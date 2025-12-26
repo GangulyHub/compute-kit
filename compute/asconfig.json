@@ -1,0 +1,9 @@
+{
+  "extends": "assemblyscript/std/assembly.json",
+  "entries": [
+    "./index.ts"
+  ],
+  "options": {
+    "bindings": "esm"
+  }
+}

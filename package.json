@@ -1,0 +1,59 @@
+{
+  "name": "computekit",
+  "version": "0.1.0",
+  "description": "WASM + Worker toolkit for React & Web apps. Run heavy logic fast, safely, and without blocking the UI.",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "npm run build:wasm && npm run build:core && npm run build:react && npm run build:examples",
+    "build:wasm": "asc compute/index.ts --outFile examples/react-demo/public/compute.wasm --bindings esm --optimize",
+    "build:core": "npm run build -w @computekit/core",
+    "build:react": "npm run build -w @computekit/react",
+    "build:examples": "npm run build -w examples/react-demo && npm run build -w examples/vanilla-demo",
+    "build:packages": "npm run build:core && npm run build:react",
+    "dev": "npm run dev -w examples/react-demo",
+    "dev:vanilla": "npm run dev -w examples/vanilla-demo",
+    "test": "vitest",
+    "lint": "eslint packages --ext .ts,.tsx",
+    "clean": "rimraf packages/*/dist examples/*/dist",
+    "prepare": "npm run build:packages"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "assemblyscript": "^0.27.37",
+    "eslint": "^8.55.0",
+    "jsdom": "^27.0.1",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  },
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "web-workers",
+    "react",
+    "performance",
+    "compute",
+    "assemblyscript",
+    "async"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/computekit"
+  },
+  "homepage": "https://github.com/your-username/computekit#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/computekit/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
