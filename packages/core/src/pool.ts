@@ -56,7 +56,7 @@ interface PoolWorker {
 
 /** Registry entry for compute functions */
 interface RegisteredFunction {
-  fn: Function;
+  fn: (...args: unknown[]) => unknown;
   serialized: string;
 }
 

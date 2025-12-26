@@ -14,7 +14,7 @@ import type {
 import { generateId, findTransferables } from '../utils';
 
 /** Registry of compute functions available in the worker */
-const functionRegistry = new Map<string, Function>();
+const functionRegistry = new Map<string, (...args: unknown[]) => unknown>();
 
 /** Current task context for progress reporting */
 let currentTaskId: string | null = null;
@@ -49,17 +49,17 @@ export function reportProgress(progress: Partial<ComputeProgress>): void {
 /**
  * Register a compute function in the worker
  */
-export function registerFunction(name: string, fn: Function): void {
+export function registerFunction(
+  name: string,
+  fn: (...args: unknown[]) => unknown
+): void {
   functionRegistry.set(name, fn);
 }
 
 /**
  * Execute a registered function
  */
-async function executeFunction(
-  functionName: string,
-  input: unknown
-): Promise<unknown> {
+async function executeFunction(functionName: string, input: unknown): Promise<unknown> {
   const fn = functionRegistry.get(functionName);
 
   if (!fn) {
