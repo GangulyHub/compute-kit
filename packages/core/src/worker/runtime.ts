@@ -14,7 +14,8 @@ import type {
 import { generateId, findTransferables } from '../utils';
 
 /** Registry of compute functions available in the worker */
-const functionRegistry = new Map<string, (...args: unknown[]) => unknown>();
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+const functionRegistry = new Map<string, Function>();
 
 /** Current task context for progress reporting */
 let currentTaskId: string | null = null;
@@ -51,7 +52,8 @@ export function reportProgress(progress: Partial<ComputeProgress>): void {
  */
 export function registerFunction(
   name: string,
-  fn: (...args: unknown[]) => unknown
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  fn: Function
 ): void {
   functionRegistry.set(name, fn);
 }

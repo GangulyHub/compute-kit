@@ -56,7 +56,8 @@ interface PoolWorker {
 
 /** Registry entry for compute functions */
 interface RegisteredFunction {
-  fn: (...args: unknown[]) => unknown;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  fn: Function;
   serialized: string;
 }
 

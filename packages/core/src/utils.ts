@@ -274,7 +274,8 @@ export class LRUCache<K, V> {
 /**
  * Serialize function to string for worker
  */
-export function serializeFunction(fn: (...args: unknown[]) => unknown): string {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+export function serializeFunction(fn: Function): string {
   return fn.toString();
 }
 
