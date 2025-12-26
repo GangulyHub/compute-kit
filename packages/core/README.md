@@ -43,8 +43,29 @@ const kit = new ComputeKit({
   timeout: 30000, // Default timeout in ms
   debug: false, // Enable debug logging
   useSharedMemory: true, // Use SharedArrayBuffer when available
+  remoteDependencies: [], // External scripts to load in workers
 });
 ```
+
+### Remote Dependencies
+
+Load external scripts inside workers using `remoteDependencies`:
+
+```typescript
+const kit = new ComputeKit({
+  remoteDependencies: [
+    'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js',
+  ],
+});
+
+// Now you can use lodash inside your compute functions
+kit.register('processData', (data: number[]) => {
+  // @ts-ignore - lodash is loaded via importScripts
+  return _.chunk(data, 3);
+});
+```
+
+**Note:** Remote scripts must be served with proper CORS headers.
 
 ### `kit.register(name, fn)`
 

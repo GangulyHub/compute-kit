@@ -15,6 +15,8 @@ export interface ComputeKitOptions {
   workerPath?: string;
   /** Whether to use SharedArrayBuffer when available (default: true) */
   useSharedMemory?: boolean;
+  /** Remote scripts to load in workers via importScripts */
+  remoteDependencies?: string[];
 }
 
 /** Options for individual compute operations */

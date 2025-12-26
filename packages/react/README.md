@@ -107,6 +107,7 @@ const {
   loading, // Boolean loading state
   error, // Error object if failed
   progress, // Progress info for long tasks
+  status, // 'idle' | 'running' | 'success' | 'error' | 'cancelled'
   run, // Function to execute
   reset, // Reset state
   cancel, // Cancel ongoing computation
@@ -117,7 +118,24 @@ await run(50);
 
 // With options
 await run(50, { timeout: 5000 });
+
+// React to status changes
+if (status === 'success') {
+  console.log('Completed!', data);
+} else if (status === 'error') {
+  console.error('Failed:', error);
+}
 ```
+
+**Status values:**
+
+| Status      | Description                         |
+| ----------- | ----------------------------------- |
+| `idle`      | Initial state, no computation yet   |
+| `running`   | Computation in progress             |
+| `success`   | Completed successfully              |
+| `error`     | Failed with an error                |
+| `cancelled` | Cancelled via `cancel()` or unmount |
 
 **Options:**
 

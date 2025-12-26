@@ -8,7 +8,8 @@
   *Run heavy computations with React hooks. Use WASM for native-speed performance. Keep your UI at 60fps.*
 
 [![npm version](https://img.shields.io/npm/v/@computekit/core.svg)](https://www.npmjs.com/package/@computekit/core)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@computekit/core)](https://bundlephobia.com/package/@computekit/core)
+[![Bundle Size Core](https://img.shields.io/bundlephobia/minzip/@computekit/core?label=core%20size)](https://bundlephobia.com/package/@computekit/core)
+[![Bundle Size React](https://img.shields.io/bundlephobia/minzip/@computekit/react?label=react%20size)](https://bundlephobia.com/package/@computekit/react)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
@@ -323,11 +324,29 @@ const kit = new ComputeKit(options?: ComputeKitOptions);
 
 #### Options
 
-| Option       | Type      | Default                         | Description             |
-| ------------ | --------- | ------------------------------- | ----------------------- |
-| `maxWorkers` | `number`  | `navigator.hardwareConcurrency` | Max workers in the pool |
-| `timeout`    | `number`  | `30000`                         | Default timeout in ms   |
-| `debug`      | `boolean` | `false`                         | Enable debug logging    |
+| Option               | Type       | Default                         | Description                         |
+| -------------------- | ---------- | ------------------------------- | ----------------------------------- |
+| `maxWorkers`         | `number`   | `navigator.hardwareConcurrency` | Max workers in the pool             |
+| `timeout`            | `number`   | `30000`                         | Default timeout in ms               |
+| `debug`              | `boolean`  | `false`                         | Enable debug logging                |
+| `remoteDependencies` | `string[]` | `[]`                            | External scripts to load in workers |
+
+### Remote Dependencies
+
+Load external libraries inside your workers:
+
+```typescript
+const kit = new ComputeKit({
+  remoteDependencies: [
+    'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js',
+  ],
+});
+
+kit.register('processData', (data: number[]) => {
+  // @ts-ignore - lodash loaded via importScripts
+  return _.chunk(data, 3);
+});
+```
 
 #### Methods
 
@@ -363,11 +382,14 @@ const {
   loading,   // Boolean loading state
   error,     // Error if failed
   progress,  // Progress info
+  status,    // 'idle' | 'running' | 'success' | 'error' | 'cancelled'
   run,       // Function to execute
   reset,     // Reset state
   cancel,    // Cancel current operation
 } = useCompute<TInput, TOutput>(functionName, options?);
 ```
+
+````
 
 ### `useComputeCallback`
 
@@ -376,7 +398,7 @@ Returns a memoized async function (similar to `useCallback`).
 ```typescript
 const calculate = useComputeCallback('sum');
 const result = await calculate([1, 2, 3, 4, 5]);
-```
+````
 
 ### `usePoolStats`
 

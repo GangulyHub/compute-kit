@@ -93,6 +93,11 @@ export function useComputeKit(): ComputeKit {
 // ============================================================================
 
 /**
+ * Status of a compute operation
+ */
+export type ComputeStatus = 'idle' | 'running' | 'success' | 'error' | 'cancelled';
+
+/**
  * State returned by useCompute
  */
 export interface UseComputeState<T> {
@@ -104,6 +109,8 @@ export interface UseComputeState<T> {
   error: Error | null;
   /** Progress information */
   progress: ComputeProgress | null;
+  /** Current status of the computation */
+  status: ComputeStatus;
 }
 
 /**
@@ -163,27 +170,37 @@ export function useCompute<TInput = unknown, TOutput = unknown>(
 ): UseComputeReturn<TInput, TOutput> {
   const kit = useComputeKit();
   const abortControllerRef = useRef<AbortController | null>(null);
+  const cancelledRef = useRef(false);
 
   const [state, setState] = useState<UseComputeState<TOutput>>({
     data: null,
     loading: false,
     error: null,
     progress: null,
+    status: 'idle',
   });
 
   const reset = useCallback(() => {
+    cancelledRef.current = false;
     setState({
       data: null,
       loading: false,
       error: null,
       progress: null,
+      status: 'idle',
     });
   }, []);
 
   const cancel = useCallback(() => {
     if (abortControllerRef.current) {
+      cancelledRef.current = true;
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        status: 'cancelled',
+      }));
     }
   }, []);
 
@@ -191,6 +208,7 @@ export function useCompute<TInput = unknown, TOutput = unknown>(
     async (input: TInput, runOptions?: ComputeOptions) => {
       // Cancel any ongoing computation
       cancel();
+      cancelledRef.current = false;
 
       // Create new abort controller
       const abortController = new AbortController();
@@ -203,9 +221,10 @@ export function useCompute<TInput = unknown, TOutput = unknown>(
           loading: true,
           error: null,
           progress: null,
+          status: 'running',
         }));
       } else {
-        setState((prev) => ({ ...prev, loading: true }));
+        setState((prev) => ({ ...prev, loading: true, status: 'running' }));
       }
 
       try {
@@ -226,15 +245,17 @@ export function useCompute<TInput = unknown, TOutput = unknown>(
             loading: false,
             error: null,
             progress: null,
+            status: 'success',
           });
         }
       } catch (err) {
-        if (!abortController.signal.aborted) {
+        if (!abortController.signal.aborted && !cancelledRef.current) {
           setState({
             data: null,
             loading: false,
             error: err instanceof Error ? err : new Error(String(err)),
             progress: null,
+            status: 'error',
           });
         }
       }

@@ -86,6 +86,7 @@ export class WorkerPool {
       debug: options.debug ?? false,
       workerPath: options.workerPath ?? '',
       useSharedMemory: options.useSharedMemory ?? true,
+      remoteDependencies: options.remoteDependencies ?? [],
     };
 
     this.logger = createLogger('ComputeKit:Pool', this.options.debug);
@@ -308,7 +309,16 @@ export class WorkerPool {
       Array.from(this.functions.keys())
     );
 
+    // Generate importScripts for remote dependencies
+    const remoteDeps = this.options.remoteDependencies;
+    const importScriptsCode =
+      remoteDeps.length > 0
+        ? `importScripts(${remoteDeps.map((url) => `"${url}"`).join(', ')});`
+        : '';
+
     const workerCode = `
+${importScriptsCode}
+
 const functions = {
 ${functionsCode}
 };
