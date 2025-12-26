@@ -562,7 +562,7 @@ npm test
 
 ## 📄 License
 
-MIT © [Your Name](https://github.com/your-username)
+MIT © [Ghassen Lassoued](https://github.com/tapava)
 
 ---
 
