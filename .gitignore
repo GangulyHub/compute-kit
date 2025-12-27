@@ -7,8 +7,6 @@ dist/
 build/
 *.wasm
 *.wasm.map
-# But include the public WASM file for deployment
-!examples/react-demo/public/compute.wasm
 
 # IDE
 .idea/
