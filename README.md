@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
-[Getting Started](#-getting-started) • [Examples](#-examples) • [API](#-api) • [React Hooks](#-react-hooks) • [WASM](#-webassembly-support)
+[📚 Documentation](https://tapava.github.io/compute-kit) • [Getting Started](#-getting-started) • [Examples](#-examples) • [API](#-api) • [React Hooks](#-react-hooks) • [WASM](#-webassembly-support)
 
 </div>
 
@@ -542,8 +542,8 @@ Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md)
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/computekit.git
-cd computekit
+git clone https://github.com/tapava/compute-kit.git
+cd compute-kit
 
 # Install dependencies
 npm install
@@ -571,6 +571,7 @@ MIT © [Ghassen Lassoued](https://github.com/tapava)
     <sub>Built with ❤️ for the web platform</sub>
   </p>
   <p>
-    <a href="https://github.com/your-username/computekit">⭐ Star on GitHub</a>
+    <a href="https://tapava.github.io/compute-kit">📚 Read the Docs</a> •
+    <a href="https://github.com/tapava/compute-kit">⭐ Star on GitHub</a>
   </p>
 </div>
