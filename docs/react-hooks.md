@@ -305,7 +305,30 @@ run({ data: [...], width: 256, height: 256 });
 
 ---
 
+## usePipeline & useParallelBatch
+
+For complex multi-stage workflows and parallel batch processing, see the dedicated [Multi-Stage Pipelines]({{ site.baseurl }}/pipeline) guide.
+
+Quick preview:
+
+```tsx
+// Multi-stage pipeline
+const pipeline = usePipeline([
+  { id: 'download', name: 'Download', functionName: 'downloadFiles' },
+  { id: 'process', name: 'Process', functionName: 'processFiles' },
+  { id: 'compress', name: 'Compress', functionName: 'compressFiles' },
+]);
+
+// Parallel batch processing
+const batch = useParallelBatch<string, ProcessedFile>('processFile', {
+  concurrency: 4,
+});
+```
+
+---
+
 ## Next Steps
 
+- Check the [Multi-Stage Pipelines]({{ site.baseurl }}/pipeline) for complex workflows
 - Check the [API Reference]({{ site.baseurl }}/api-reference) for the complete API
 - Learn about [WASM integration]({{ site.baseurl }}/wasm) for native-speed performance

@@ -200,6 +200,8 @@ module.exports = {
 ## Next Steps
 
 - Learn about [React Hooks]({{ site.baseurl }}/react-hooks) for the full React experience
+- Read the [Debugging Guide]({{ site.baseurl }}/debugging) for troubleshooting tips
+- Understand [Performance & Data Transfer]({{ site.baseurl }}/performance) to optimize payloads
 - Check the [API Reference]({{ site.baseurl }}/api-reference) for all available methods
 - Explore [WASM integration]({{ site.baseurl }}/wasm) for maximum performance
 - See [Examples]({{ site.baseurl }}/examples) for real-world use cases

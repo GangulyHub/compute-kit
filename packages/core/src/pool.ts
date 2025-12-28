@@ -24,6 +24,8 @@ import {
   findTransferables,
   getHardwareConcurrency,
   createLogger,
+  estimatePayloadSize,
+  formatBytes,
   type Deferred,
   type Logger,
 } from './utils';
@@ -427,8 +429,14 @@ self.postMessage({ type: 'ready' });
           this.stats.tasksCompleted++;
           this.stats.totalDuration += resultPayload.duration;
 
+          // Log with payload sizes in debug mode
+          const inputSize = estimatePayloadSize(task.input);
+          const outputSize = resultPayload.outputSize ?? 0;
           this.logger.debug(
-            `Task ${id} completed in ${resultPayload.duration.toFixed(2)}ms`
+            `Task ${id} (${task.functionName}): ` +
+              `input=${formatBytes(inputSize)}, ` +
+              `output=${formatBytes(outputSize)}, ` +
+              `duration=${resultPayload.duration.toFixed(2)}ms`
           );
           task.deferred.resolve(resultPayload.data);
 

@@ -27,16 +27,17 @@ Run heavy computations with React hooks. Use WASM for native-speed performance. 
 
 ## ✨ Features
 
-| Feature                  | Description                                                                    |
-| :----------------------- | :----------------------------------------------------------------------------- |
-| ⚛️ **React-first**       | Purpose-built hooks like `useCompute` with loading, error, and progress states |
-| 🦀 **WASM integration**  | Load and call AssemblyScript/Rust WASM modules with zero boilerplate           |
-| 🚀 **Non-blocking**      | Everything runs in Web Workers, keeping your UI at 60fps                       |
-| 🔧 **Zero config**       | No manual worker files, postMessage handlers, or WASM glue code                |
-| 📦 **Tiny**              | Core library is ~3KB gzipped                                                   |
-| 🎯 **TypeScript**        | Full type safety for your compute functions and WASM bindings                  |
-| 🔄 **Worker pool**       | Automatic load balancing across CPU cores                                      |
-| 📊 **Progress tracking** | Built-in progress reporting for long-running tasks                             |
+| Feature                      | Description                                                                    |
+| :--------------------------- | :----------------------------------------------------------------------------- |
+| ⚛️ **React-first**           | Purpose-built hooks like `useCompute` with loading, error, and progress states |
+| 🦀 **WASM integration**      | Load and call AssemblyScript/Rust WASM modules with zero boilerplate           |
+| 🚀 **Non-blocking**          | Everything runs in Web Workers, keeping your UI at 60fps                       |
+| 🔧 **Zero config**           | No manual worker files, postMessage handlers, or WASM glue code                |
+| 📦 **Tiny**                  | Core library is ~3KB gzipped                                                   |
+| 🎯 **TypeScript**            | Full type safety for your compute functions and WASM bindings                  |
+| 🔄 **Worker pool**           | Automatic load balancing across CPU cores                                      |
+| 📊 **Progress tracking**     | Built-in progress reporting for long-running tasks                             |
+| 🔗 **Multi-stage pipelines** | Chain compute operations with `usePipeline` for complex workflows              |
 
 ---
 
@@ -44,14 +45,15 @@ Run heavy computations with React hooks. Use WASM for native-speed performance. 
 
 You _can_ use Web Workers and WASM without a library. But here's the reality:
 
-| Task              | Without ComputeKit                                                  | With ComputeKit                    |
-| ----------------- | ------------------------------------------------------------------- | ---------------------------------- |
-| Web Worker setup  | Create separate `.js` files, handle `postMessage`, manage callbacks | `kit.register('fn', myFunc)`       |
-| WASM loading      | Fetch, instantiate, memory management, glue code                    | `await loadWasmModule('/my.wasm')` |
-| React integration | Manual state, effects, cleanup, abort handling                      | `useCompute()` hook                |
-| Worker pooling    | Build your own pool, queue, and load balancer                       | Built-in                           |
-| TypeScript        | Tricky worker typing, no WASM types                                 | Full type inference                |
-| Error handling    | Try-catch across message boundaries                                 | Automatic with React error states  |
+| Task                  | Without ComputeKit                                                  | With ComputeKit                    |
+| --------------------- | ------------------------------------------------------------------- | ---------------------------------- |
+| Web Worker setup      | Create separate `.js` files, handle `postMessage`, manage callbacks | `kit.register('fn', myFunc)`       |
+| WASM loading          | Fetch, instantiate, memory management, glue code                    | `await loadWasmModule('/my.wasm')` |
+| React integration     | Manual state, effects, cleanup, abort handling                      | `useCompute()` hook                |
+| Worker pooling        | Build your own pool, queue, and load balancer                       | Built-in                           |
+| Multi-stage workflows | Manual chaining, error handling per stage, retry logic              | `usePipeline()` hook               |
+| TypeScript            | Tricky worker typing, no WASM types                                 | Full type inference                |
+| Error handling        | Try-catch across message boundaries                                 | Automatic with React error states  |
 
 **ComputeKit's unique value:** The only library that combines **React hooks + WASM + Worker pool** into one cohesive, type-safe developer experience.
 
@@ -67,6 +69,7 @@ You _can_ use Web Workers and WASM without a library. But here's the reality:
 | Parsing large files                | String formatting            |
 | Cryptographic operations           | UI state management          |
 | Real-time data analysis            | Small form validations       |
+| Multi-file processing pipelines    | Simple single-step tasks     |
 
 ---
 
@@ -170,6 +173,9 @@ function Calculator() {
 
 - [Getting Started Guide]({{ site.baseurl }}/getting-started)
 - [React Hooks Reference]({{ site.baseurl }}/react-hooks)
+- [Multi-Stage Pipelines]({{ site.baseurl }}/pipeline)
+- [Debugging Guide]({{ site.baseurl }}/debugging)
+- [Performance & Data Transfer]({{ site.baseurl }}/performance)
 - [API Reference]({{ site.baseurl }}/api-reference)
 - [WASM Guide]({{ site.baseurl }}/wasm)
 - [Examples]({{ site.baseurl }}/examples)
