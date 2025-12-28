@@ -27,6 +27,8 @@ ComputeKit provides purpose-built React hooks for seamless integration.
 
 Wrap your application with the provider to enable all hooks.
 
+{% raw %}
+
 ```tsx
 import { ComputeKitProvider } from '@computekit/react';
 
@@ -38,6 +40,8 @@ function App() {
   );
 }
 ```
+
+{% endraw %}
 
 ### Provider Options
 

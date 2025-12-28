@@ -135,6 +135,8 @@ const {
 
 ### Complete Pipeline UI
 
+{% raw %}
+
 ```tsx
 function DataPipeline() {
   const pipeline = usePipeline([
@@ -224,6 +226,8 @@ function DataPipeline() {
   );
 }
 ```
+
+{% endraw %}
 
 ### Conditional Stage Skipping
 
@@ -414,6 +418,8 @@ console.log(report.insights);
 
 Build a timeline UI from the metrics:
 
+{% raw %}
+
 ```tsx
 function PipelineTimeline({ metrics }: { metrics: PipelineMetrics }) {
   const startTime = metrics.timeline[0]?.timestamp ?? 0;
@@ -439,6 +445,8 @@ function PipelineTimeline({ metrics }: { metrics: PipelineMetrics }) {
   );
 }
 ```
+
+{% endraw %}
 
 ## Pipeline Options
 
