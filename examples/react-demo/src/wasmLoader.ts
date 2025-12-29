@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+// Import WASM as URL - Vite handles asset resolution across all environments
+import wasmUrl from './compute.wasm?url';
+
 interface WasmImports {
   env?: Record<string, unknown>;
 }
@@ -77,50 +80,29 @@ export async function loadWasm(): Promise<WasmExports> {
   }
 
   loadingPromise = (async () => {
-    // Try multiple paths to handle different environments (local dev, StackBlitz, production)
-    const possiblePaths = [
-      '/compute.wasm',
-      './compute.wasm',
-      new URL('/compute.wasm', import.meta.url).href,
-    ];
-
-    let arrayBuffer: ArrayBuffer | null = null;
-    let lastError: string = '';
-
-    for (const wasmUrl of possiblePaths) {
-      try {
-        const res = await fetch(wasmUrl);
-        if (!res.ok) {
-          lastError = `${wasmUrl}: ${res.status} ${res.statusText}`;
-          continue;
-        }
-
-        const buffer = await res.arrayBuffer();
-        // Check for WASM magic number (0x00 0x61 0x73 0x6D = "\0asm")
-        const magic = new Uint8Array(buffer.slice(0, 4));
-        if (
-          magic[0] === 0x00 &&
-          magic[1] === 0x61 &&
-          magic[2] === 0x73 &&
-          magic[3] === 0x6d
-        ) {
-          arrayBuffer = buffer;
-          break;
-        } else {
-          lastError = `${wasmUrl}: Invalid WASM (got ${Array.from(magic)
-            .map((b) => b.toString(16))
-            .join(' ')})`;
-        }
-      } catch (e) {
-        lastError = `${wasmUrl}: ${(e as Error).message}`;
-      }
+    // Use the Vite-resolved WASM URL (works in StackBlitz and local dev)
+    const res = await fetch(wasmUrl);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch WASM: ${res.status} ${res.statusText}`);
     }
 
-    if (!arrayBuffer) {
-      throw new Error(`Failed to fetch WASM from any path. Last error: ${lastError}`);
+    const buffer = await res.arrayBuffer();
+    // Verify WASM magic number (0x00 0x61 0x73 0x6D = "\0asm")
+    const magic = new Uint8Array(buffer.slice(0, 4));
+    if (
+      magic[0] !== 0x00 ||
+      magic[1] !== 0x61 ||
+      magic[2] !== 0x73 ||
+      magic[3] !== 0x6d
+    ) {
+      throw new Error(
+        `Invalid WASM file (got ${Array.from(magic)
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join(' ')})`
+      );
     }
 
-    const module = await WebAssembly.compile(arrayBuffer);
+    const module = await WebAssembly.compile(buffer);
     cachedExports = await instantiate(module, {});
     return cachedExports;
   })();
