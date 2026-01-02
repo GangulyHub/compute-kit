@@ -3,9 +3,9 @@
   
   # ComputeKit
   
-  **The React-first toolkit for WASM and Web Workers**
+  **The toolkit for non-blocking heavy computations**
   
-  *Run heavy computations with React hooks. Use WASM for native-speed performance. Keep your UI at 60fps.*
+  *Run heavy computations off the main thread and keep web UIs responsive — with optional React integration and WASM support*
 
 [![npm version](https://img.shields.io/npm/v/@computekit/core.svg)](https://www.npmjs.com/package/@computekit/core)
 [![Bundle Size Core](https://img.shields.io/bundlephobia/minzip/@computekit/core?label=core%20size)](https://bundlephobia.com/package/@computekit/core)
