@@ -3,9 +3,9 @@
   
   # ComputeKit
   
-  **The React-first toolkit for WASM and Web Workers**
+  **A tiny toolkit for heavy computations using Web Workers**
   
-  *Run heavy computations with React hooks. Use WASM for native-speed performance. Keep your UI at 60fps.*
+  *Integration with React hooks and WASM*
 
 [![npm version](https://img.shields.io/npm/v/@computekit/core.svg)](https://www.npmjs.com/package/@computekit/core)
 [![Bundle Size Core](https://img.shields.io/bundlephobia/minzip/@computekit/core?label=core%20size)](https://bundlephobia.com/package/@computekit/core)
@@ -22,14 +22,14 @@
 
 ## ✨ Features
 
-- ⚛️ **React-first** — Purpose-built hooks like `useCompute` with loading, error, and progress states
-- 🦀 **WASM integration** — Load and call AssemblyScript/Rust WASM modules with zero boilerplate
-- 🚀 **Non-blocking** — Everything runs in Web Workers, keeping your UI at 60fps
-- 🔧 **Zero config** — No manual worker files, postMessage handlers, or WASM glue code
-- 📦 **Tiny** — Core library is ~3KB gzipped
-- 🎯 **TypeScript** — Full type safety for your compute functions and WASM bindings
-- 🔄 **Worker pool** — Automatic load balancing across CPU cores
-- 📊 **Progress tracking** — Built-in progress reporting for long-running tasks
+- 🔄 **Worker pool** : Automatic load balancing across CPU cores
+- ⚛️ **React-first** : Provides hooks like `useCompute` with loading, error, and progress states
+- 🦀 **WASM integration** : Easily load and call AssemblyScript/Rust WASM modules
+- 🚀 **Non-blocking** : Everything runs in Web Workers
+- 🔧 **Zero config** : No manual worker files or postMessage handlers
+- 📦 **Tiny** : Core library is ~5KB gzipped
+- 🎯 **TypeScript** : Full type safety for your compute functions and WASM bindings
+- 📊 **Progress tracking** : Built-in progress reporting for long-running tasks
 
 ---
 
@@ -50,7 +50,7 @@ You _can_ use Web Workers and WASM without a library. But here's the reality:
 
 ---
 
-## 🎯 When to use ComputeKit
+## 🎯 When to use this toolkit (And when not to use it)
 
 | ✅ Use ComputeKit                  | ❌ Don't use ComputeKit      |
 | ---------------------------------- | ---------------------------- |
@@ -104,7 +104,7 @@ kit.register('fibonacci', (n: number) => {
 
 // 3. Run it (non-blocking!)
 const result = await kit.run('fibonacci', 50);
-console.log(result); // 12586269025 — UI never froze!
+console.log(result); // 12586269025 :  UI never froze!
 ```
 
 ### React Usage
@@ -160,7 +160,7 @@ function Calculator() {
 
 ### React + WASM (Full Example)
 
-This is where ComputeKit shines — combining `useCompute` with WASM for native-speed performance:
+This is where ComputeKit shines : combining `useCompute` with WASM for native-speed performance:
 
 ```tsx
 import { ComputeKitProvider, useComputeKit, useCompute } from '@computekit/react';
@@ -254,7 +254,7 @@ function ImageProcessor() {
 
 **Key benefits:**
 
-- WASM runs in a Web Worker via `useCompute` — UI stays responsive
+- WASM runs in a Web Worker via `useCompute` : UI stays responsive
 - Same familiar `loading`, `data`, `error` pattern as other compute functions
 - WASM memory management encapsulated in the registered function
 - Can easily add progress reporting, cancellation, etc.
@@ -456,13 +456,13 @@ const wasmModule = await loadWasmModule('/compute/sum.wasm');
 
 ## ⚡ Performance Tips
 
-1. **Transfer large data** — Use typed arrays (Uint8Array, Float64Array) for automatic transfer optimization
+1. **Transfer large data** : Use typed arrays (Uint8Array, Float64Array) for automatic transfer optimization
 
-2. **Batch small operations** — Combine many small tasks into one larger task
+2. **Batch small operations** : Combine many small tasks into one larger task
 
-3. **Right-size your pool** — More workers ≠ better. Match to CPU cores.
+3. **Right-size your pool** : More workers ≠ better. Match to CPU cores.
 
-4. **Use WASM for math** — AssemblyScript functions can be 10-100x faster for numeric work
+4. **Use WASM for math** : AssemblyScript functions can be 10-100x faster for numeric work
 
 ```typescript
 // ❌ Slow: Many small calls

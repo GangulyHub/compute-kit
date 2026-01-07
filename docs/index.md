@@ -14,10 +14,10 @@ permalink: /
 
 {: .fs-9 }
 
-The React-first toolkit for WASM and Web Workers
+A tiny toolkit for heavy computations using Web Workers
 {: .fs-6 .fw-300 }
 
-Run heavy computations with React hooks. Use WASM for native-speed performance. Keep your UI at 60fps.
+Integration with React hooks and WASM.
 {: .fs-5 .fw-300 }
 
 [Get Started](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
@@ -32,9 +32,9 @@ Run heavy computations with React hooks. Use WASM for native-speed performance. 
 | :--------------------------- | :----------------------------------------------------------------------------- |
 | ⚛️ **React-first**           | Purpose-built hooks like `useCompute` with loading, error, and progress states |
 | 🦀 **WASM integration**      | Load and call AssemblyScript/Rust WASM modules with zero boilerplate           |
-| 🚀 **Non-blocking**          | Everything runs in Web Workers, keeping your UI at 60fps                       |
+| 🚀 **Non-blocking**          | Everything runs in Web Workers                                                 |
 | 🔧 **Zero config**           | No manual worker files, postMessage handlers, or WASM glue code                |
-| 📦 **Tiny**                  | Core library is ~3KB gzipped                                                   |
+| 📦 **Tiny**                  | Core library is ~5KB gzipped                                                   |
 | 🎯 **TypeScript**            | Full type safety for your compute functions and WASM bindings                  |
 | 🔄 **Worker pool**           | Automatic load balancing across CPU cores                                      |
 | 📊 **Progress tracking**     | Built-in progress reporting for long-running tasks                             |
@@ -115,7 +115,7 @@ kit.register('fibonacci', (n: number) => {
 
 // 3. Run it (non-blocking!)
 const result = await kit.run('fibonacci', 50);
-console.log(result); // 12586269025 — UI never froze!
+console.log(result); // 12586269025 (UI never froze!)
 ```
 
 ### React Usage
