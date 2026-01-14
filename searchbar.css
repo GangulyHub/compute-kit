@@ -1,0 +1,32 @@
+.input{
+       	 width: 400px;
+       	 border: 3px solid #fff;
+       	 color: #fff;
+       	 background: transparent;
+       	 padding: 15px ;
+       	 border-radius: 50px;
+       	 font-size: 18px;
+       	 outline: none;
+       }
+        ::-webkit-input-placeholder{
+        	color:#fff;
+            text-transform: uppercase;
+            font-family: "Roboto", sans-serif;
+        }
+
+        .close-btn{
+        	position: absolute;
+        	right: 17px;
+        	top: 181.5px;
+        	background: #fff;
+        	cursor: pointer;
+        	width: 120px;
+        	height: 55px;
+        	color: #fc913a;
+        	border-radius: 50px;
+        	border:0;
+        	outline: none;
+        	text-transform: uppercase;
+        	font-weight: bold;
+
+        }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaarning System</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="dropdown.css">
+	<link rel="stylesheet" type="text/css" href="text_on_image.css">
+<link rel="stylesheet" type="text/css" href="searchbar.css">
+<link rel="stylesheet" type="text/css" href="logbton.css">
+<link rel="stylesheet" type="text/css" href="feedb.css">
+<link rel="stylesheet" type="text/css" href="login1.css">
+<link rel="stylesheet" type="text/css" href="faq.css">
+<script>function lol()
+        {alert('Please Login First')}
+        </script>
+</head>
+<body onload="lol()">
+<table  width="100%" cellpadding="0" cellspacing="0">
+	<tr ><td colspan="4" bgcolor="E99696"> <img src='logoo.PNG' width='200' height='100' align="left"><h1>&nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp The World's Best Learning Site<br> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <button class="button" onclick="document.getElementById('id01').style.display='block'" style="vertical-align:middle"><span>Login</span></button></h1></td></tr>
+</table>
+<div id="id01" class="modal">
+  <form class="modal-content animate" action="cse202.html">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="avatar.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <br>
+      <input type="text" class="inputt" placeholder="Enter Username" required>
+      <br>
+      <label for="psw"><b>Password</b></label>
+      <br>
+      <input type="password" class="inputt" placeholder="Enter Password" required>
+        
+      <button type="submit">Login</button>
+      <br>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="forgotpass.html">password?</a></span>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+	<div class="navbar">
+  <a href="cse202.html">Home</a>
+  <div class="dropdown">
+    <button class="dropbtn">Videos 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="https://www.youtube.com/watch?v=dD2EISBDjWM&list=PLr6-GrHUlVf_ZNmuQSXdS197Oyr1L9sPB">HTML</a>
+      <a href="https://www.youtube.com/watch?v=qKoajPPWpmo&list=PLr6-GrHUlVf8JIgLcu3sHigvQjTw_aC9C">CSS</a>
+      <a href="https://www.youtube.com/watch?v=uDwSnnhl1Ng&list=PLsyeobzWxl7qtP8Lo9TReqUMkiOp446cV">JavaScript</a>
+    </div>
+  </div> 
+  <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic_document">Tutorials</a>
+  <a href="https://www.w3schools.com/html/html_exercises.asp">Test Your Self</a>
+  <a href="contact_us.html">Contact Us</a>
+</div>
+	<div class="bro">
+    <img src="tablebg.jpg" width="100%" height="360">
+    <div class="centered"><h1>Learn With Professionals</h1><BR><h2>LearnHard Best Place To Learn</h2>
+    <div class="searchbar">
+	<div class="container">
+    <input type="text" class="input" placeholder="What Do You Want To Learn?">
+	<input type="button" value="search" class="close-btn">
+	</div>
+    </div>
+    </div>
+    </div>
+<div id="myfaq" class="faq">
+  <a href="" id="que">FAQ</a>
+</div>
+    <table width="100%">
+	<tr><td bgcolor="grey"><center><h1>HTML</h1><h3>Basic<br>Elements<br>Style<br>Paragraph</h3><br><h1>CSS</h1><h3>Style<br>Internal<br>External<br>Learn CSS</h3><br><h1>JavaScript</h1><h3>Input<br>Output<br>Pop-Ups<br>Learn JavaScript</center></h3></td>
+		<td bgcolor="abcdef"><center><h1>The Most Popular Language To Build Web Page</h1><br>
+			                            <h2> Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications. It forms a triad of cornerstone technologies for the World Wide Web.</h2>
+                                         
+                                         <h1><br> The language for styling web pages<br></h1>
+                                         <h2>Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language like HTML. CSS is a cornerstone technology of the World Wide Web.</h2>
+
+                                         <h1><br>The language for programming web pages<br></h1>
+                                        <h2> JavaScript often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification. It is a programming language that is characterized as dynamic, weakly typed, prototype-based and multi-paradigm.The vast majority of websites use it,and major web browsers have a dedicated JavaScript engine to execute it.</h2>
+                                     </center></td></tr>
+</table>
+<br>
+<br>
+<br>
+<marquee behaviour='scroll' direction='left' bgcolor='orange' scrollamount="20" >
+<p><h1> <center>Our Partner Online Learning Websites</center></h1></p></marquee>
+
+
+	<iframe src="https://www.hackerrank.com" height="300px" width="49%"></iframe>
+	<iframe src="https://unacademy.com/" height="300px" width="49%"></iframe>
+	<hr color="blue">
+     <h3><center>LearnHard is optimized for learning, testing, and training. Examples might be simplified to improve reading and basic understanding. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content. While using this site, you agree to have read and accepted our terms of use, cookie and privacy policy.<br>
+     Copyright 1999-2019 by Ganguly . All Rights Reserved.<br>
+     &copy;LearnHard</center>
+</h3>
+</body>
+</html>
